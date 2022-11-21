@@ -1,0 +1,21 @@
+name: Build
+
+on: [ push, workflow_dispatch ]
+
+jobs:
+  examples:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "OK"
+  build:
+    needs: [examples]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "OK"
+  release:
+    needs: [examples]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
